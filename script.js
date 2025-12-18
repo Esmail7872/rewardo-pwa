@@ -1,10 +1,12 @@
 function login(){
-  var u = document.getElementById("username").value;
-  var p = document.getElementById("password").value;
+  var email = document.getElementById("username").value;
+  var password = document.getElementById("password").value;
 
-  if(u === "admin" && p === "1234"){
-    window.location.href = "./dashboard.html";
-  }else{
-    document.getElementById("msg").innerHTML = "Wrong Username or Password";
-  }
+  firebase.auth().signInWithEmailAndPassword(email, password)
+    .then(function(){
+      window.location.href = "dashboard.html";
+    })
+    .catch(function(error){
+      document.getElementById("msg").innerHTML = error.message;
+    });
 }
