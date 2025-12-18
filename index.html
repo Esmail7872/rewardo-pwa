@@ -1,38 +1,87 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Rewardo Login</title>
-  <link rel="stylesheet" href="style.css">
+  <title>LinkUp World - Login Test</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f4f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .login-container {
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0px 4px 20px rgba(0,0,0,0.1);
+      text-align: center;
+      width: 300px;
+    }
+    input {
+      width: 90%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      background-color: #5b7ef7;
+      color: white;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background-color: #466ed3;
+    }
+  </style>
 </head>
 <body>
 
-<div class="login-box">
-  <h2>Login</h2>
-
-  <input type="text" id="username" placeholder="Email">
-  <input type="password" id="password" placeholder="Password">
-
+<div class="login-container">
+  <h2>Login Test</h2>
+  <input type="email" id="email" placeholder="Email"><br>
+  <input type="password" id="password" placeholder="Password"><br>
   <button onclick="login()">Login</button>
-  <p id="msg"></p>
 </div>
 
-<!-- Firebase CDN SDK -->
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+  import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-<script>
-  var firebaseConfig = {
-    apiKey: "AIzaSyAMXBGszT_7WaIfAy3SMcCfYG0ZKoY-_bA",
-    authDomain: "rewardo-app-dacbb.firebaseapp.com",
-    projectId: "rewardo-app-dacbb",
-    storageBucket: "rewardo-app-dacbb.appspot.com",
-    messagingSenderId: "936435804158",
-    appId: "1:936435804158:web:1c48b5b2edad86f73102af"
+  // ✅ Replace with your Firebase config
+  const firebaseConfig = {
+    apiKey: "YOUR_API_KEY",
+    authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+    projectId: "YOUR_PROJECT_ID",
   };
 
-  firebase.initializeApp(firebaseConfig);
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  window.login = function() {
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value.trim();
+
+    if(email === "" || password === "") {
+      alert("❌ Email and Password can’t be empty");
+      return;
+    }
+
+    signInWithEmailAndPassword(auth, email, password)
+      .then(userCredential => {
+        alert("✅ Login Successful\nWelcome " + userCredential.user.email);
+      })
+      .catch(error => {
+        alert("❌ Login Failed\nError: " + error.code);
+        console.error(error);
+      });
+  };
 </script>
 
-<script src="script.js"></script>
 </body>
 </html>
