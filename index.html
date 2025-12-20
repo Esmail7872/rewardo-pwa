@@ -1,17 +1,125 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Login Test</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinkUp World Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom right, #cce7ff, #f8e1f4, #fef6f6);
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: rgba(255,255,255,0.8);
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            margin: 0;
+            font-size: 2em;
+            color: #333;
+        }
+        #user-info {
+            margin: 15px 0;
+            font-size: 1em;
+            color: #555;
+        }
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            padding: 20px;
+        }
+        .card {
+            background-color: rgba(255,255,255,0.9);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .card:hover {
+            transform: scale(1.05);
+        }
+        .card img {
+            width: 50px;
+            height: 50px;
+            margin-bottom: 10px;
+        }
+        #coins {
+            font-weight: bold;
+            color: #1a73e8;
+        }
+        button {
+            margin-top: 10px;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 8px;
+            background-color: #1a73e8;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #155ab6;
+        }
+    </style>
 </head>
 <body>
 
-<h2>Login Test</h2>
+    <header>
+        <h1>LinkUp World</h1>
+        <div id="user-info">Username: MD Esmail Hosen | User ID: LW-001</div>
+        <h3>Your Coins: <span id="coins">0</span></h3>
+        <button id="logoutBtn">Logout</button>
+    </header>
 
-<input type="email" id="email" placeholder="Email"><br><br>
-<input type="password" id="password" placeholder="Password"><br><br>
+    <div class="dashboard">
+        <div class="card" onclick="alert('Shopping Clicked!')">
+            <img src="icons/shopping.png" alt="Shopping">
+            <div>Shopping</div>
+        </div>
+        <div class="card" onclick="alert('Arn Clicked!')">
+            <img src="icons/arn.png" alt="Arn">
+            <div>Arn</div>
+        </div>
+        <div class="card" onclick="alert('Communication Clicked!')">
+            <img src="icons/communication.png" alt="Communication">
+            <div>Communication</div>
+        </div>
+        <div class="card" onclick="alert('Service Clicked!')">
+            <img src="icons/service.png" alt="Service">
+            <div>Service</div>
+        </div>
+        <div class="card" onclick="alert('Family/Team Clicked!')">
+            <img src="icons/family.png" alt="Family/Team">
+            <div>Family/Team</div>
+        </div>
+        <div class="card" onclick="alert('Jobs Clicked!')">
+            <img src="icons/jobs.png" alt="Jobs">
+            <div>Jobs</div>
+        </div>
+        <div class="card" onclick="alert('Emergency Clicked!')">
+            <img src="icons/emergency.png" alt="Emergency">
+            <div>Emergency</div>
+        </div>
+        <div class="card" onclick="alert('Privacy Policy Clicked!')">
+            <img src="icons/privacy.png" alt="Privacy Policy">
+            <div>Privacy Policy</div>
+        </div>
+        <div class="card" onclick="alert('AI Help Center Clicked!')">
+            <img src="icons/ai-help.png" alt="AI Help Center">
+            <div>AI Help Center</div>
+        </div>
+    </div>
 
-<button onclick="login()">Login</button>
+    <script type="module" src="auth-check.js"></script>
+    <script type="module" src="logout.js"></script>
+    <script type="module" src="reward.js"></script>
 
-<script type="module" src="script.js"></script>
 </body>
 </html>
