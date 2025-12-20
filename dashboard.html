@@ -8,13 +8,15 @@
   <h2>Welcome 🎉</h2>
   <p>Login Successful</p>
 
+  <!-- 👇 এখানেই Coins দেখাবে -->
+  <h3>Your Coins: <span id="coins">0</span></h3>
+
   <button onclick="logout()">Logout</button>
 
-  <!-- Auth check -->
+  <!-- 👇 সব script body এর নিচে -->
   <script type="module" src="auth-check.js"></script>
-
-  <!-- Logout logic -->
   <script type="module" src="logout.js"></script>
+  <script type="module" src="reward.js"></script>
 
 </body>
 </html>
