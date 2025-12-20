@@ -14,7 +14,11 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
 onAuthStateChanged(auth, (user) => {
-  if (!user) {
-    window.location.href = "index.html";
+  if (user) {
+    // logged in → stay
+    console.log("User active");
+  } else {
+    // not logged in → force back to login
+    window.location.replace("index.html");
   }
 });
