@@ -13,7 +13,7 @@
             padding: 0;
         }
         header {
-            background-color: rgba(255,255,255,0.8);
+            background-color: rgba(255,255,255,0.9);
             padding: 20px;
             text-align: center;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
@@ -24,7 +24,7 @@
             color: #333;
         }
         #user-info {
-            margin: 15px 0;
+            margin: 10px 0;
             font-size: 1em;
             color: #555;
         }
@@ -35,7 +35,7 @@
             padding: 20px;
         }
         .card {
-            background-color: rgba(255,255,255,0.9);
+            background-color: rgba(255,255,255,0.95);
             padding: 20px;
             border-radius: 15px;
             text-align: center;
@@ -71,55 +71,86 @@
 </head>
 <body>
 
-    <header>
-        <h1>LinkUp World</h1>
-        <div id="user-info">Username: MD Esmail Hosen | User ID: LW-001</div>
-        <h3>Your Coins: <span id="coins">0</span></h3>
-        <button id="logoutBtn">Logout</button>
-    </header>
+<header>
+    <h1>LinkUp World</h1>
+    <div id="user-info">Username: MD Esmail Hosen | User ID: LW-001</div>
+    <h3>Your Coins: <span id="coins">0</span></h3>
+    <button id="logoutBtn">Logout</button>
+    <button id="rewardBtn">Claim Reward</button>
+</header>
 
-    <div class="dashboard">
-        <div class="card" onclick="alert('Shopping Clicked!')">
-            <img src="icons/shopping.png" alt="Shopping">
-            <div>Shopping</div>
-        </div>
-        <div class="card" onclick="alert('Arn Clicked!')">
-            <img src="icons/arn.png" alt="Arn">
-            <div>Arn</div>
-        </div>
-        <div class="card" onclick="alert('Communication Clicked!')">
-            <img src="icons/communication.png" alt="Communication">
-            <div>Communication</div>
-        </div>
-        <div class="card" onclick="alert('Service Clicked!')">
-            <img src="icons/service.png" alt="Service">
-            <div>Service</div>
-        </div>
-        <div class="card" onclick="alert('Family/Team Clicked!')">
-            <img src="icons/family.png" alt="Family/Team">
-            <div>Family/Team</div>
-        </div>
-        <div class="card" onclick="alert('Jobs Clicked!')">
-            <img src="icons/jobs.png" alt="Jobs">
-            <div>Jobs</div>
-        </div>
-        <div class="card" onclick="alert('Emergency Clicked!')">
-            <img src="icons/emergency.png" alt="Emergency">
-            <div>Emergency</div>
-        </div>
-        <div class="card" onclick="alert('Privacy Policy Clicked!')">
-            <img src="icons/privacy.png" alt="Privacy Policy">
-            <div>Privacy Policy</div>
-        </div>
-        <div class="card" onclick="alert('AI Help Center Clicked!')">
-            <img src="icons/ai-help.png" alt="AI Help Center">
-            <div>AI Help Center</div>
-        </div>
+<div class="dashboard">
+    <div class="card" onclick="dashboardClick('Shopping')">
+        <img src="icons/shopping.png" alt="Shopping">
+        <div>Shopping</div>
     </div>
+    <div class="card" onclick="dashboardClick('Arn')">
+        <img src="icons/arn.png" alt="Arn">
+        <div>Arn</div>
+    </div>
+    <div class="card" onclick="dashboardClick('Communication')">
+        <img src="icons/communication.png" alt="Communication">
+        <div>Communication</div>
+    </div>
+    <div class="card" onclick="dashboardClick('Service')">
+        <img src="icons/service.png" alt="Service">
+        <div>Service</div>
+    </div>
+    <div class="card" onclick="dashboardClick('Family/Team')">
+        <img src="icons/family.png" alt="Family/Team">
+        <div>Family/Team</div>
+    </div>
+    <div class="card" onclick="dashboardClick('Jobs')">
+        <img src="icons/jobs.png" alt="Jobs">
+        <div>Jobs</div>
+    </div>
+    <div class="card" onclick="dashboardClick('Emergency')">
+        <img src="icons/emergency.png" alt="Emergency">
+        <div>Emergency</div>
+    </div>
+    <div class="card" onclick="dashboardClick('Privacy Policy')">
+        <img src="icons/privacy.png" alt="Privacy Policy">
+        <div>Privacy Policy</div>
+    </div>
+    <div class="card" onclick="dashboardClick('AI Help Center')">
+        <img src="icons/ai-help.png" alt="AI Help Center">
+        <div>AI Help Center</div>
+    </div>
+</div>
 
-    <script type="module" src="auth-check.js"></script>
-    <script type="module" src="logout.js"></script>
-    <script type="module" src="reward.js"></script>
+<script type="module" src="auth-check.js"></script>
+<script type="module" src="logout.js"></script>
+<script type="module" src="reward.js"></script>
+<script>
+    let coins = 0;
+
+    // Update coin display
+    function updateCoins() {
+        document.getElementById('coins').innerText = coins;
+    }
+
+    // Dashboard card click action
+    function dashboardClick(section) {
+        alert(section + ' clicked!');
+    }
+
+    // Reward button action
+    document.getElementById('rewardBtn').addEventListener('click', () => {
+        let reward = Math.floor(Math.random() * 10) + 1; // 1 to 10 coins
+        coins += reward;
+        updateCoins();
+        alert('You earned ' + reward + ' coins!');
+    });
+
+    // Logout button action
+    document.getElementById('logoutBtn').addEventListener('click', () => {
+        alert('Logged out!');
+        // Add real logout code here if needed
+    });
+
+    // Initial coin display
+    updateCoins();
+</script>
 
 </body>
 </html>
