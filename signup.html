@@ -1,0 +1,29 @@
+<h2>Create Account</h2>
+<input id="name" placeholder="Name">
+<input id="email" placeholder="Email">
+<input id="password" type="password" placeholder="Password">
+<button onclick="signup()">Signup</button>
+
+<script type="module">
+import { createUserWithEmailAndPassword } from 
+"https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { doc, setDoc, serverTimestamp } from 
+"https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { auth, db } from "./firebase.js";
+
+window.signup = async () => {
+  const cred = await createUserWithEmailAndPassword(auth,email.value,password.value);
+  await setDoc(doc(db,"Users",cred.user.uid),{
+    name:name.value,
+    email:email.value,
+    role:"user",
+    coin:0,
+    silver:0,
+    gold:0,
+    diamond:0,
+    isBlocked:false,
+    createdAt:serverTimestamp()
+  });
+  location.href="dashboard.html";
+};
+</script>
