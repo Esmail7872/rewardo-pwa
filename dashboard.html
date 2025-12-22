@@ -1,22 +1,35 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Dashboard</title>
-</head>
-<body>
+<h2>User Dashboard</h2>
+<p id="msg"></p>
 
-  <h2>Welcome 🎉</h2>
-  <p>Login Successful</p>
+<div>
+  🥈 Silver: <span id="silver"></span><br>
+  🥇 Gold: <span id="gold"></span><br>
+  💎 Diamond: <span id="diamond"></span>
+</div>
 
-  <!-- 👇 এখানেই Coins দেখাবে -->
-  <h3>Your Coins: <span id="coins">0</span></h3>
+<button onclick="logout()">Logout</button>
 
-  <button onclick="logout()">Logout</button>
+<script type="module">
+import { onAuthStateChanged, signOut } from 
+"https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { getDoc, doc } from 
+"https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { auth, db } from "./firebase.js";
 
-  <!-- 👇 সব script body এর নিচে -->
-  <script type="module" src="auth-check.js"></script>
-  <script type="module" src="logout.js"></script>
-  <script type="module" src="reward.js"></script>
+onAuthStateChanged(auth, async user=>{
+  if(!user) return location.href="index.html";
+  const u = await getDoc(doc(db,"Users",user.uid));
+  const d = u.data();
 
-</body>
-</html>
+  if(d.role==="admin") return location.href="admin.html";
+
+  silver.innerText=d.silver;
+  gold.innerText=d.gold;
+  diamond.innerText=d.diamond;
+
+  const notice = await getDoc(doc(db,"OwnerMessages","latest"));
+  if(notice.exists()) msg.innerText="📢 "+notice.data().message;
+});
+
+window.logout=()=>signOut(auth);
+</script>
