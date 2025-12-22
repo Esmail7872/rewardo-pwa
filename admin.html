@@ -1,21 +1,45 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Admin Panel</title>
-</head>
-<body>
-
 <h2>Admin Panel</h2>
 
-<input type="text" id="uid" placeholder="User UID"><br><br>
-<input type="number" id="coins" placeholder="Coins"><br><br>
+<h3>Update Coins</h3>
+<input id="silver" placeholder="Silver">
+<input id="gold" placeholder="Gold">
+<input id="diamond" placeholder="Diamond">
+<button onclick="updateCoins()">Publish</button>
 
-<button onclick="addCoins()">Add Coins</button>
-<button onclick="removeCoins()">Remove Coins</button>
+<h3>Owner Message</h3>
+<textarea id="notice"></textarea>
+<button onclick="publish()">Send Alert</button>
 
-<p id="status"></p>
+<button onclick="logout()">Logout</button>
 
-<script type="module" src="admin.js"></script>
+<script type="module">
+import { onAuthStateChanged, signOut } from 
+"https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { doc, updateDoc, setDoc, serverTimestamp } from 
+"https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { auth, db } from "./firebase.js";
 
-</body>
-</html>
+onAuthStateChanged(auth, async user=>{
+  if(!user) location.href="index.html";
+});
+
+window.updateCoins=async()=>{
+  await updateDoc(doc(db,"Coins","main"),{
+    silver:+silver.value,
+    gold:+gold.value,
+    diamond:+diamond.value,
+    updatedAt:serverTimestamp()
+  });
+  alert("Coins updated");
+};
+
+window.publish=async()=>{
+  await setDoc(doc(db,"OwnerMessages","latest"),{
+    message:notice.value,
+    time:serverTimestamp()
+  });
+  alert("Notice sent");
+};
+
+window.logout=()=>signOut(auth);
+</script>
