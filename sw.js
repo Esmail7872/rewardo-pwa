@@ -1,11 +1,1 @@
-self.addEventListener('install', (e) => {
-  console.log('Service Worker: Installed');
-});
-
-self.addEventListener('activate', (e) => {
-  console.log('Service Worker: Activated');
-});
-
-self.addEventListener('fetch', (e) => {
-  // Basic fetch cache bypass (later extend)
-});
+// deprecated – logic merged into other files
