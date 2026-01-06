@@ -1,17 +1,23 @@
 import { auth, db } from "./firebase.js";
-import {
-  doc, updateDoc, increment, getDoc
-} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { doc, getDoc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
+// Earn Coin function (Mock Ad)
 window.earnCoin = async () => {
   const user = auth.currentUser;
-  if (!user) return alert("Login first");
+  if (!user) {
+    alert("Login first!");
+    return;
+  }
 
-  // Future: real ads integration
-  await updateDoc(doc(db, "users", user.uid), {
+  // Reference to current user
+  const userRef = doc(db, "users", user.uid);
+
+  // Increase coins by 1 (future: replace with ad reward logic)
+  await updateDoc(userRef, {
     coins: increment(1)
   });
 
-  const snap = await getDoc(doc(db, "users", user.uid));
-  coin.innerText = snap.data().coins;
+  // Update coin display
+  const snap = await getDoc(userRef);
+  document.getElementById("coin").innerText = snap.data().coins;
 };
