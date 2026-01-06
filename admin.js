@@ -1,5 +1,4 @@
-// Future admin features:
-// - Set coin value
-// - Send notification
-// - Control ads
-// এখন খালি রাখা ঠিক আছে
+// Admin future features:
+// - Coin control
+// - Notifications
+// - Ads settings
