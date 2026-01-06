@@ -1,1 +1,2 @@
-// deprecated – logic merged into other files
+// Deprecated file
+// This file is no longer used
