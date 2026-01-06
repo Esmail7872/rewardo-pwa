@@ -32,10 +32,10 @@ window.register = async () => {
 
 onAuthStateChanged(auth, async (user) => {
   if (user) {
-    document.getElementById("authBox").style.display = "none";
-    document.getElementById("userBox").style.display = "block";
+    authBox.style.display = "none";
+    userBox.style.display = "block";
 
     const snap = await getDoc(doc(db, "users", user.uid));
-    document.getElementById("coin").innerText = snap.data().coins;
+    coin.innerText = snap.data().coins;
   }
 });
