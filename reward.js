@@ -7,11 +7,11 @@ window.earnCoin = async () => {
   const user = auth.currentUser;
   if (!user) return alert("Login first");
 
-  // এখানে future এ real ads বসবে
+  // Future: real ads integration
   await updateDoc(doc(db, "users", user.uid), {
     coins: increment(1)
   });
 
   const snap = await getDoc(doc(db, "users", user.uid));
-  document.getElementById("coin").innerText = snap.data().coins;
+  coin.innerText = snap.data().coins;
 };
