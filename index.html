@@ -1,111 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Rewardo – Earn Coins</title>
-
-  <!-- Basic Style -->
+  <meta charset="UTF-8">
+  <title>Rewardo</title>
   <link rel="stylesheet" href="style.css">
-
-  <!-- Firebase -->
-  <script type="module" src="firebase.js"></script>
 </head>
-
 <body>
 
-  <h2>🎁 Rewardo</h2>
+  <h1>🎁 Rewardo</h1>
   <p>Earn coins by watching ads</p>
 
-  <!-- Auth Section -->
-  <div id="authBox">
-    <input type="email" id="email" placeholder="Email" />
-    <input type="password" id="password" placeholder="Password" />
+  <input type="email" id="email" placeholder="Email">
+  <br>
+  <input type="password" id="password" placeholder="Password">
+  <br><br>
 
-    <button onclick="login()">Login</button>
-    <button onclick="signup()">Sign Up</button>
-  </div>
+  <button id="loginBtn">Login</button>
+  <button id="signupBtn">Sign Up</button>
 
-  <!-- Dashboard -->
-  <div id="dashboard" style="display:none;">
-    <h3>Welcome <span id="userEmail"></span></h3>
-    <p>💰 Coins: <span id="coin">0</span></p>
+  <p id="message"></p>
 
-    <button onclick="earnCoin()">Watch Ad & Earn</button>
-    <button onclick="logout()">Logout</button>
-  </div>
-
-  <!-- App Logic -->
-  <script type="module">
-    import { auth, db } from "./firebase.js";
-    import {
-      createUserWithEmailAndPassword,
-      signInWithEmailAndPassword,
-      signOut,
-      onAuthStateChanged
-    } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-
-    import {
-      doc,
-      getDoc,
-      setDoc,
-      updateDoc
-    } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-    const authBox = document.getElementById("authBox");
-    const dashboard = document.getElementById("dashboard");
-    const coinText = document.getElementById("coin");
-    const userEmail = document.getElementById("userEmail");
-
-    // Signup
-    window.signup = async () => {
-      const email = email.value;
-      const password = password.value;
-
-      const userCred = await createUserWithEmailAndPassword(auth, email, password);
-      await setDoc(doc(db, "users", userCred.user.uid), {
-        email,
-        coins: 0,
-        role: "user"
-      });
-    };
-
-    // Login
-    window.login = async () => {
-      await signInWithEmailAndPassword(auth, email.value, password.value);
-    };
-
-    // Logout
-    window.logout = async () => {
-      await signOut(auth);
-    };
-
-    // Earn Coin (Mock Ad)
-    window.earnCoin = async () => {
-      const user = auth.currentUser;
-      const ref = doc(db, "users", user.uid);
-      const snap = await getDoc(ref);
-
-      const newCoin = (snap.data().coins || 0) + 1;
-      await updateDoc(ref, { coins: newCoin });
-      coinText.innerText = newCoin;
-    };
-
-    // Auth State
-    onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        authBox.style.display = "none";
-        dashboard.style.display = "block";
-        userEmail.innerText = user.email;
-
-        const snap = await getDoc(doc(db, "users", user.uid));
-        coinText.innerText = snap.data().coins || 0;
-      } else {
-        authBox.style.display = "block";
-        dashboard.style.display = "none";
-      }
-    });
-  </script>
+  <!-- IMPORTANT: module scripts -->
+  <script type="module" src="./firebase.js"></script>
+  <script type="module" src="./auth-check.js"></script>
 
 </body>
 </html>
