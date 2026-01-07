@@ -1,31 +1,42 @@
-import { auth, db } from "./firebase.js";
-import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { auth } from "./firebase.js";
+import {
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword
+} from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
 
-// Check if user is logged in and role
-onAuthStateChanged(auth, async (user) => {
-  if (!user) {
-    // Not logged in → redirect to login
-    window.location.href = "index.html";
-    return;
-  }
+const emailInput = document.getElementById("email");
+const passwordInput = document.getElementById("password");
+const message = document.getElementById("message");
 
-  // Fetch user data
-  const userRef = doc(db, "users", user.uid);
-  const userSnap = await getDoc(userRef);
+document.getElementById("loginBtn").addEventListener("click", login);
+document.getElementById("signupBtn").addEventListener("click", signup);
 
-  if (!userSnap.exists()) {
-    alert("User data not found!");
-    await auth.signOut();
-    window.location.href = "index.html";
-    return;
-  }
+function login() {
+  const email = emailInput.value;
+  const password = passwordInput.value;
 
-  const userData = userSnap.data();
+  signInWithEmailAndPassword(auth, email, password)
+    .then(() => {
+      message.innerText = "✅ Login successful";
+      message.style.color = "green";
+    })
+    .catch((error) => {
+      message.innerText = error.message;
+      message.style.color = "red";
+    });
+}
 
-  // Check role
-  if (window.location.pathname.includes("admin.html") && userData.role !== "admin") {
-    alert("Access Denied: Admins Only!");
-    window.location.href = "dashboard.html"; // Redirect normal user
-  }
-});
+function signup() {
+  const email = emailInput.value;
+  const password = passwordInput.value;
+
+  createUserWithEmailAndPassword(auth, email, password)
+    .then(() => {
+      message.innerText = "✅ Account created successfully";
+      message.style.color = "green";
+    })
+    .catch((error) => {
+      message.innerText = error.message;
+      message.style.color = "red";
+    });
+}
