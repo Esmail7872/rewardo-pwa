@@ -16,8 +16,7 @@ function login() {
   const password = passwordInput.value;
 
   signInWithEmailAndPassword(auth, email, password)
-    .then(() => {
-      message.innerText = "✅ Login successful";
+    .then(() => {window.location.href = "dashboard.html";
       message.style.color = "green";
     })
     .catch((error) => {
